@@ -1,52 +1,52 @@
 import React from "react";
-import { Component } from "react";
+import { nanoid } from "nanoid";
 import PhonebookForm from "./PhonebookForm";
+import Contacts from "./Contacts";
 
-class App extends Component  {
+class App extends React.Component  {
 
   state = {
-  contacts: [],
+   contacts: [
+    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+  ],
   name: ''
   }
   
-  handleSubmit = evt => { 
-    evt.preventDefault();
-  // this.props.onSubmit(this.state.name)
-    console.log(evt.currentTarget);
-  }
+ 
+  addContact = (name) => {
+    const contact = {
+      id: nanoid(),
+      name, 
+          };
+    
 
-   handleChange = evt => { 
-   this.setState({ name: evt.currentTarget.value })
-    console.log(this.state);
-  }
+    this.setState(({contacts}) => ({
+      contacts: [contact, ...contacts]
+    }))
+ 
+   }
 
   render()
   {
+    const { contacts } = this.state
+    console.log({ contacts });
     return (
       <>
         <div className="Phonebook">
           <h1>Phonebook</h1>
-
-          <PhonebookForm></PhonebookForm>
-          <form onSubmit={this.handleSubmit}>
-            <label className='label'>Name</label>
-            <input
-  type="text"
-  name="name"
-  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-  required
-
-            onChange={this.handleChange}/>
-            <button type="submit">Add Contact</button>
-         </form>
+          <PhonebookForm
+            onSubmit={ this.addContact}/>
+         
         </div>
         
         <div className='Contacts'>
- <h2>Contacts</h2>
-          <ul className="list">
-            <li >{ this.name}</li>
-</ul>
+          <h2>Contacts</h2>
+          <Contacts
+            contacts={ contacts }/>
+          
         </div>
 
   
