@@ -1,6 +1,5 @@
 import React from 'react';
 import st from './PhonebookForm.module.css';
-// import isEqual from 'lodash.isequal';
 
 class PhonebookForm extends React.Component {
   state = {
@@ -19,11 +18,8 @@ class PhonebookForm extends React.Component {
 
   onHandleSubmit = evt => {
     evt.preventDefault();
-    // console.log(' лог в onHandleSubmit в файле формы', this.state);
 
     this.props.onSubmit(this.state);
-    // console.log('лог имя в форме - то что пытаемся добавить', this.state.name);
-
     this.setState({
       name: '',
       number: '',

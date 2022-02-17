@@ -1,5 +1,6 @@
 import React from 'react';
 import st from './Contacts.module.css';
+
 const Contacts = ({ contacts, onDeleteContact }) => (
   <ul className={st.list}>
     {contacts.map(({ id, name, number }) => (

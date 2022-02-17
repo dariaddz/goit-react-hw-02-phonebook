@@ -16,7 +16,6 @@ class App extends React.Component  {
    filter:''
   }
   
- 
   addContact = ({ name, number }) => {
     const contact = {
       id: nanoid(),
@@ -53,11 +52,12 @@ class App extends React.Component  {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+
   changeFilter = evt => {
     this.setState({ filter: evt.currentTarget.value });
   };
   
- foundContacts = () => {
+ filterContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
@@ -68,32 +68,24 @@ class App extends React.Component  {
 
   render()
   {
-    // const { contacts } = this.state
-    const contactsToShow = this.foundContacts();
-    // console.log("лог в рендере APP",this.state);
+  const contactsToShow = this.filterContacts();
+  
     return (
       <>
-        <div className="Phonebook">
-          <h1>Phonebook</h1>
-          <PhonebookForm
+        <h1>Phonebook</h1>
+        <PhonebookForm
             onSubmit={ this.addContact}/>
-         
-        </div>
         
+        <h2>Contacts</h2>
         <Filter
-          value={this.filter} onChange={this.changeFilter}
+          value={this.filter}
+          onChange={this.changeFilter}
               />
-        <div className='Contacts'>
-          <h2>Contacts</h2>
-          <Contacts
-            contacts={contactsToShow}
+        <Contacts
+          contacts={contactsToShow}
           onDeleteContact={this.deleteContact}/>
-          
-        </div>
-
-  
-        
-        </>
+                  
+      </>
     )
   } 
 };
