@@ -23,29 +23,20 @@ class App extends React.Component  {
       number
           };
     
-    const nameToCheck = name;
-    console.log("существующий массив контактов - лог в addContact - там где будем сравнивать", this.state.contacts);
-    console.log("nameToCheck", nameToCheck);
-    
-    // проверка книги на содержание контакта
+      
+    const validation = this.state.contacts.find(
+      (contact) => contact.name === name)
+  
+    if (!validation) {
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts]
+      }));
 
-
-//     const validation = this.state.contacts.map(({ name }) => { 
-//       if (name === nameToCheck) {
-//         console.log("имя совпадает");
-//         return;  }
-//       console.log("имя НЕ совпадает");
-//  this.setState(({ contacts }) => ({
-//       contacts: [contact, ...contacts]
-//     }));
-//     }
-//     )
-    
-    
-     this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts]
-    }));
-   }
+      return
+    }
+  
+    alert("You already have this contact in your phonebook")
+  }
 
   deleteContact = contactId => {
     this.setState(prevState => ({
@@ -66,8 +57,7 @@ class App extends React.Component  {
     );
   };
 
-  render()
-  {
+  render()  {
   const contactsToShow = this.filterContacts();
   
     return (
