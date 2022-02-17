@@ -1,6 +1,6 @@
 import React from 'react';
 import st from './PhonebookForm.module.css';
-import isEqual from 'lodash.isequal';
+// import isEqual from 'lodash.isequal';
 class PhonebookForm extends React.Component {
   state = {
     name: '',
