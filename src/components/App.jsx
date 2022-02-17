@@ -2,6 +2,7 @@ import React from "react";
 import { nanoid } from "nanoid";
 import PhonebookForm from "./PhonebookForm";
 import Contacts from "./Contacts";
+import Filter from "./Filter";
 
 class App extends React.Component  {
 
@@ -12,8 +13,7 @@ class App extends React.Component  {
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ],
-  name: '',
-    number: '',
+   filter:''
   }
   
  
@@ -30,7 +30,7 @@ class App extends React.Component  {
     
     // проверка книги на содержание контакта
 
-    
+
 //     const validation = this.state.contacts.map(({ name }) => { 
 //       if (name === nameToCheck) {
 //         console.log("имя совпадает");
@@ -48,9 +48,23 @@ class App extends React.Component  {
     }));
    }
 
+  changeFilter = evt => {
+    this.setState({ filter: evt.currentTarget.value });
+  };
+  
+ foundContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+  };
+
   render()
   {
-    const { contacts } = this.state
+    // const { contacts } = this.state
+    const contactsToShow = this.foundContacts();
     // console.log("лог в рендере APP",this.state);
     return (
       <>
@@ -61,10 +75,13 @@ class App extends React.Component  {
          
         </div>
         
+        <Filter
+          value={this.filter} onChange={this.changeFilter}
+              />
         <div className='Contacts'>
           <h2>Contacts</h2>
           <Contacts
-            contacts={ contacts }/>
+            contacts={contactsToShow}/>
           
         </div>
 

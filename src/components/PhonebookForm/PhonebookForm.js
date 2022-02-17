@@ -1,6 +1,7 @@
 import React from 'react';
 import st from './PhonebookForm.module.css';
 // import isEqual from 'lodash.isequal';
+
 class PhonebookForm extends React.Component {
   state = {
     name: '',
@@ -15,30 +16,12 @@ class PhonebookForm extends React.Component {
       [name]: value,
     }));
   };
-  //   onHandleSubmit = evt => {
-  //     evt.preventDefault();
-  //     console.log(this.state);
 
-  //     // так тоже можно
-  //     // const permission = DB.some((user) => isEqual(this.state.userInfo, user));
-  //     const permission = DB.find(user => isEqual(this.state.userInfo, user.data));
-  //     console.log('permission', permission);
-
-  //     if (!permission) {
-  //       this.setState({ error: true });
-  //     }
-  //     if (!this.state.error) {
-  //       this.props.getPermission(permission);
-  //       this.reset();
-  //     }
-  //   };
   onHandleSubmit = evt => {
     evt.preventDefault();
     // console.log(' лог в onHandleSubmit в файле формы', this.state);
 
     this.props.onSubmit(this.state);
-
-    // const permission = this.state.some(name => isEqual(this.state.name, name));
     // console.log('лог имя в форме - то что пытаемся добавить', this.state.name);
 
     this.setState({
@@ -46,12 +29,6 @@ class PhonebookForm extends React.Component {
       number: '',
     });
   };
-
-  //   reset = () => {
-  //     this.setState({
-  //       name: '',
-  //     });
-  //   };
 
   render() {
     const { name, number } = this.state;
